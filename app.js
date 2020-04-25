@@ -14,7 +14,7 @@ function capitalize(str){
     return str[0].toUpperCase() + str.slice(1);
 }
 async function main(withIp = true) {
-    let ville;
+    let ville = 'Liffré';
     if (withIp){
         // choper l'adresse IP du PC qui ouvre la page : https://api.ipify.org?format=json
         const ip = await fetch('http://api.ipify.org?format=json')
