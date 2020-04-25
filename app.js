@@ -15,8 +15,20 @@ function capitalize(str){
 }
 async function main(withIp = true) {
     let ville = 'Liffré';
-   
+       if (withIp){
+        // choper l'adresse IP du PC qui ouvre la page : https://api.ipify.org?format=json
+        const ip = await fetch('https://api.ipify.org?format=json')
+            .then(resultat => resultat.json())
+            .then(json =>
+                json.ip);
+
+         ville= await fetch('http://api.ipstack.com/' + ip + '?access_key=deb3cef73ede19b322e3a574dc5d989a&output=json')
+            .then(resultat => resultat.json())
+            .then(json =>
+                json.city);
+    }else{
         ville= document.querySelector('#ville').textContent;
+    }
 
   const meteo =await fetch('https://api.openweathermap.org/data/2.5/weather?q=' + ville + '&appid=6d05f915f7cb757891878cfd10bcaa34&lang=fr&units=metric')
                         .then(resultat => resultat.json())
@@ -54,7 +66,7 @@ ville.addEventListener('keydown', (e)=>{
     }
 })
 
-main();
+main(false);
 
 /*
 
